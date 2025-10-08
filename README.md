@@ -1,2 +1,3 @@
 # SSU-CS-351-Class-repo
-computer architecture class I took at Sonoma State
+Computer architecture class I took at Sonoma State
+* Project 1
