@@ -253,6 +253,8 @@ Heap-based programs (malloc, new, and list) showed multiple heap breaks that inc
   - the relationship of the head, tail, and Node next pointers.
   - show the size (in bytes) and structure of a Node that allocated six bytes of data
   - include the bytes pointer, and indicate using an arrow which byte in the allocated memory it points to.
+ 
+  (I am not sure how to include image but willing to show)
 
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4XmP4//8/AwAI/AL+GwXmLwAAAABJRU5ErkJggg==)
 
