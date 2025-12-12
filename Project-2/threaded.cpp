@@ -92,11 +92,19 @@ int main(int argc, char* argv[]) {
     //   the threads, the computational loop (see mean.cpp), and lambda's
     //   closure configuration.
     //
+    const size_t numSamples = data.size();
     for (size_t id = 0; id < threads.size(); ++id) {
         threads[id] = std::jthread(
-            []() {
+            [&, id]() {
                 // Add your implementation here
-
+		size_t begin = id * chunkSize;
+		size_t end  = std::min( begin  + chunkSize, numSamples);
+		
+		double localSum = 0.0;
+		for( size_t i  = begin; i < end; i++){
+		   localSum+=data[i];
+		}
+		sums[id] = localSum;
                 barrier.arrive_and_wait();
             }
         );
