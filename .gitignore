@@ -39,3 +39,7 @@
 
 # debug information files
 *.dwo
+
+# Binary data files
+*.bin
+
