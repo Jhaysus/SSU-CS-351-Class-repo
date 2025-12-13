@@ -177,6 +177,9 @@ Each iteration of the mean kernel reads one double, requiring 8 bytes per iterat
 ![Mean speedup graph](Project-2/sdf.png)
 
 
+The performance curve for the SDF computation is similar in shape to the mean computation in that speedup increases as more threads are added. However, unlike the mean computation, the SDF speedup appears closer to linear over the tested range. This is because the SDF kernel performs more computation per iteration and is less constrained by memory bandwidth, allowing it to scale more efficiently with additional threads.
+
+
 
 
 
