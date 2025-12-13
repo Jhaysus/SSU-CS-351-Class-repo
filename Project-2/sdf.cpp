@@ -135,16 +135,20 @@ int main(int argc, char* argv[]) {
     //   (really, you'll need to add four lines to this, one of which is a
     //      closing brace :-)   
     //
+     std::vector<size_t> volumePoints(numThreads, 0);
+
     for (size_t id = 0; id < threads.size(); ++id) {
-        threads[id] = std::jthread{ []() {
+        threads[id] = std::jthread{ [&, id]() {
 
             // C++ 11's random number generation system.  These functions
             //   will generate uniformly distributed unsigned integers in
             //   the range [0, partitions].  The functions are used in the
             //   helper function rand() (implemented as a lambda)
-            std::random_device device;
-            std::mt19937 generator(device());
-            std::uniform_int_distribution<unsigned int> uniform(0.0, partitions);
+  //          std::random_device device;
+//            std::mt19937 generator(device());
+           std::mt19937 generator(static_cast<unsigned int>(1234567 + id));
+
+         std::uniform_int_distribution<unsigned int> uniform(0u,static_cast<unsigned int>(partitions - 1));
 
 
                 // Define a helper function to generate random floating-point
@@ -152,13 +156,20 @@ int main(int argc, char* argv[]) {
                 auto rand = [&,partitions]() {
                     return static_cast<double>(uniform(generator)) / partitions;
                 };
-            
+            size_t begin = id * (numSamples / numThreads);
+	    size_t end = ( id == numThreads -1)? numSamples: begin+(numSamples / numThreads);
+	    size_t localCount = 0;
+	
+	     
                 // Generate points inside the volume cube.  First, create uniformly
                 //   distributed points in the range [0.0, 1.0] for each dimension.
-                vec3 p(rand(), rand(), rand());
+                for (size_t i = begin; i < end; ++i) {
+        vec3 p(rand(), rand(), rand());
+        localCount += sdf(p); 
+    }
 
-
-            barrier.arrive_and_wait();
+    volumePoints[id] = localCount;
+ //           barrier.arrive_and_wait();
         }};
     }
 
@@ -168,6 +179,17 @@ int main(int argc, char* argv[]) {
     //
     // (Look in threaded.cpp for hints)
 
-    std::cout << static_cast<double>(volumePoints) / numSamples << "\n";
+   for( auto& t: threads){
+	t.join();
+}
+
+    size_t hits = std::accumulate(
+    volumePoints.begin(),
+    volumePoints.end(),
+    size_t{0}
+);
+
+std::cout << static_cast<double>(hits) / numSamples << "\n";
+
 }
 
