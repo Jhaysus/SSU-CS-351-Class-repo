@@ -1,6 +1,7 @@
 # SSU-CS-351-Class-repo
 Computer architecture class I took at Sonoma State
 * Project 1
+* Project 2
 
   
 Jesus Longares
@@ -149,3 +150,11 @@ In the memory, Alloca uses the stack, malloc and new is used for the heap, and l
 - As the size of data in a Node increases, does the significance of allocating the node increase or decrease?
 
 As the size of the data in the Node increases, the significance of allocating the node decreases.Larger nodes take more time to process and hash, so there's a fixed allocation overhead has a smaller impact for runtime.
+
+
+
+
+Project 2
+
+
+
