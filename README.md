@@ -172,8 +172,11 @@ what value would you proposed for p, and describe how you arrived at that value.
 
 Based on the speedup graph, performance converges at a maximum speedup of approximately 18×. Using Amdahl’s Law, this corresponds to a parallelizable fraction of p ≈ 0.94, meaning about 94% of the program can be parallelized. The remaining ~6% of serial work limits further speedup as additional threads are added.
 
+Each iteration of the mean kernel reads one double, requiring 8 bytes per iteration. Based on the total data size and runtime, the kernel achieves higher effective bandwidth with threading, but the bandwidth increase eventually plateaus as memory limits are reached. This behavior is consistent across threaded versions, indicating the computation is memory-bandwidth bound rather than compute-bound.
 
 ![Mean speedup graph](Project-2/sdf.png)
+
+
 
 
 
