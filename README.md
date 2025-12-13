@@ -151,7 +151,7 @@ In the memory, Alloca uses the stack, malloc and new is used for the heap, and l
 
 As the size of the data in the Node increases, the significance of allocating the node decreases.Larger nodes take more time to process and hash, so there's a fixed allocation overhead has a smaller impact for runtime.
 
-![Mean speedup graph](Project-2/mean_speedup.png)
+![Mean speedup graph](Project-2/Speed-ups vs. threads.png)
 Does it “converge” to some general value? What’s the maximum speedup you got from threading? What happens when you use more cores than are available in the hardware?
 The graph converges at around the 38 thread, where it stays at around 18. It continues this thread as it longer speeds up. The speedup curve initially increases rapidly as additional threads are introduced, but it eventually converges to a nearly constant value. In this experiment, the speedup converges at around 38 threads, where it stabilizes at approximately 18×. Beyond this point, adding more threads does not result in further performance improvement.
 
